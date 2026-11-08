@@ -35,3 +35,7 @@ python -m unittest discover -s tests -t . -v
 ```
 
 MIT licensed. Built by [AndMaverick LLC](https://www.andmaverick.com).
+
+---
+
+**If this is your problem.** If you are deciding what to build, buy, and fund, I help leadership teams make that call with evidence. [Begin a conversation](https://calendly.com/andmaverick?utm_source=github&utm_medium=repo&utm_campaign=orchestra.dsl).
