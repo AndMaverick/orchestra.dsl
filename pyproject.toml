@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "orchestra.dsl"
+version = "0.1.0"
+description = "Declare an AI plan as data: validate it, order it, cost it, find parallel levels and the critical path. Dependency-free Python."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "AndMaverick LLC" }]
+
+[tool.setuptools.packages.find]
+include = ["orchestra_dsl*"]
