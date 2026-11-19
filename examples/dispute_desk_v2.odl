@@ -1,0 +1,8 @@
+# A card-dispute desk: read the claim, classify it, check policy, and only then move money.
+plan "dispute-desk" {
+  step ingest   { latency 2  outputs [claim] }
+  step classify after ingest { model small  cost 0.002  latency 1  inputs [claim]  outputs [category]  retries 1  p_fail 0.02 }
+  step evidence after ingest { model large  cost 0.04   latency 6  inputs [claim]  outputs [findings]  retries 2  p_fail 0.08 }
+  step decide   after classify, evidence { model large  cost 0.03  latency 3  inputs [category, findings]  outputs [decision] }
+  step refund   after decide { risk 4  latency 2  retries 2  p_fail 0.02  idempotent false  inputs [decision]  final }
+}
