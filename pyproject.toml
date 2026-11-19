@@ -4,8 +4,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "orchestra.dsl"
-version = "0.1.0"
-description = "Declare an AI plan as data: validate it, order it, cost it, find parallel levels and the critical path. Dependency-free Python."
+version = "0.2.0"
+description = "Write an AI workflow as a small language and check it before it runs: dataflow validation, critical path and slack, expected cost under failure and retries, worker scheduling, approval and risk lint, plan diffs for review, digests. Dependency-free Python."
+classifiers = ["Typing :: Typed", "Programming Language :: Python :: 3", "License :: OSI Approved :: MIT License"]
+keywords = ["llm", "workflow", "dsl", "orchestration", "planning", "governance"]
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
@@ -13,3 +15,21 @@ authors = [{ name = "AndMaverick LLC" }]
 
 [tool.setuptools.packages.find]
 include = ["orchestra_dsl*"]
+
+[tool.setuptools.package-data]
+orchestra_dsl = ["py.typed"]
+
+[project.scripts]
+orchestra-dsl = "orchestra_dsl.cli:main"
+
+[tool.ruff]
+line-length = 130
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "C4", "SIM"]
+ignore = ["E501"]
+
+[tool.mypy]
+strict = true
+files = ["orchestra_dsl"]
