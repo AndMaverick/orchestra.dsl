@@ -100,6 +100,8 @@ The diff shows what moved in cost and latency, and separately flags the changes 
 python -m unittest discover -s tests -t . -v
 ```
 
+**Related repositories:** [playbook.compiler](https://github.com/AndMaverick/playbook.compiler) turns a markdown runbook into a plan this tool can check. [mao-framework](https://github.com/AndMaverick/mao-framework) is the framework whose orchestration layer executes plans under policy and audit.
+
 MIT licensed. Built by [AndMaverick LLC](https://www.andmaverick.com).
 
 ---
