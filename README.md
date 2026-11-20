@@ -43,7 +43,7 @@ leverage (time saved if the step were instant):
 - **Critical path and slack.** Full critical path method: earliest and latest start for every step, and slack. `classify` has slack, so making it faster changes nothing, and `leverage` says so in numbers.
 - **Cost under failure.** Each step's cost is multiplied by its expected attempts (`1 + p + p^2 + ...` up to its retries) and weighted by the chance it is reached, since a step that fails after its retries stops everything downstream. Nominal, expected and worst case are reported side by side. A Monte Carlo test checks the expected cost against simulation.
 - **Scheduling.** `schedule(plan, workers=n)` runs list scheduling on n workers. The tests check on random plans that no dependency is violated, no worker does two things at once, and the makespan stays inside Graham's bounds.
-- **Dataflow.** `inputs` must come from an upstream step that produces them, and two steps cannot produce the same output. Both are load-time errors.
+- **Dataflow.** `inputs` must come from an upstream step that produces them, and two steps cannot produce the same output. Both are load time errors.
 
 ## Check it before it runs
 
@@ -57,10 +57,10 @@ That is a real design flaw in the example: the refund can be sent twice. The che
 | Code | Severity | Meaning |
 |---|---|---|
 | OD201 | error | A step at or above the risk threshold has no approval on it or before it |
-| OD202 | warning | A non-idempotent step is retried |
+| OD202 | warning | A nonidempotent step is retried |
 | OD301 / 302 / 303 | error | Expected cost, expected latency or success probability outside your limit |
 | OD401 | warning | Model not in the allowed list |
-| OD501 / 502 | warning | Fan-in or depth over the limit |
+| OD501 / 502 | warning | Fan in or depth over the limit |
 | OD601 | warning | An output that nothing consumes |
 
 `check` exits 1 on any error (`--strict` includes warnings), so it works as a CI gate: `--max-cost 0.10 --max-latency 200 --approval-risk 3 --models small,large`.
@@ -76,7 +76,7 @@ REVIEW: approval removed from refund
 REVIEW: refund is no longer behind an approval
 ```
 
-The diff shows what moved in cost and latency, and separately flags the changes a reviewer must read: an approval removed, a gate lost through the dependency graph, risk raised, a step made non-idempotent, a new high-risk step. Exit code 1 when any are present.
+The diff shows what moved in cost and latency, and separately flags the changes a reviewer must read: an approval removed, a gate lost through the dependency graph, risk raised, a step made nonidempotent, a new high risk step. Exit code 1 when any are present.
 
 ## Pin what was approved
 
@@ -90,7 +90,7 @@ The diff shows what moved in cost and latency, and separately flags the changes 
 
 - Latencies, costs and failure rates are numbers you provide. The analysis is only as good as they are, so feed it measured values (see [agent.trace](https://github.com/AndMaverick/agent.trace) for where to get them).
 - Failures are assumed independent. Real outages are correlated, so treat the success probability as an optimistic bound.
-- The expected-cost model is fail-stop on the failing branch. It does not model compensating actions or partial rollbacks.
+- The expected cost model is fail stop on the failing branch. It does not model compensating actions or partial rollbacks.
 - The worker scheduler is a good heuristic, not an optimal schedule.
 - This describes and checks a plan. It does not run one.
 
